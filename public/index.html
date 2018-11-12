@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>HW8 Fall 2017</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/ngstorage/0.3.10/ngStorage.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://code.highcharts.com/stock/highstock.js"></script>
+  <script src="highcharts-ng.js"></script>
+  <script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script> -->
+  <link href="angular-bootstrap-toggle.min.css" rel="stylesheet">
+  <script src="angular-bootstrap-toggle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone-with-data.min.js"></script>
+ 
+  <!-- <script src="js\stockapp.js"></script>
+  <script src="js\controllers\directory.js"></script>
+  <script src="js\services\services.js"></script> -->
+  <script src="main.js"></script>
+  <script src="http://code.highcharts.com/modules/exporting.js"></script>
+  <!-- <script src="js\auto.js"></script>  -->
+  
+  <style>
+    .clearfix::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+    .favanim.ng-hide-remove,
+    .myanim.ng-hide-remove,
+    .myanim.ng-hide-add,
+    .favanim.ng-hide-add
+    {
+        -webkit-transition:0.5s linear all;
+        -moz-transition:0.5s linear all;
+        -o-transition:0.5s linear all;
+        transition:0.5s linear all;
+        position:absolute;
+    }
+    .myanim.ng-hide-remove {
+     left:-100%;
+     opacity:1;
+    }
+    .myanim.ng-hide-add,
+    .myanim.ng-hide-remove.ng-hide-remove-active {
+    left:0;
+    }
+    .myanim.ng-hide-add.ng-hide-add-active {
+    left:-100%;
+    opacity:0;
+    }
+    .favanim.ng-hide-remove{
+        left:100%;
+        opacity:1;
+    }
+    .favanim.ng-hide-add.ng-hide-add-active {
+    left: 100%;
+    opacity:0;
+    }
+    .favanim.ng-hide-add,
+    .favanim.ng-hide-remove.ng-hide-remove-active{
+        left:0;
+        
+    } 
+    .panel {
+    overflow:hidden;
+    }
+   .glyphicon-star {
+   color: #ffcc00;
+    }
+   .bodyClass{
+    background-image: url("http://cs-server.usc.edu:45678/hw/hw8/images/background.png");
+    height:200%;
+   }
+   .mobileheight{
+    height: 350%;
+   }
+  .align_center{
+  	margin: 0 auto;
+    width:50%;
+  }
+  .text_pad{
+  	margin-bottom: 0;
+  }
+  .submitted{
+        border: 1px solid red !important;
+    }
+  .drop-btn{
+        background-color: transparent;
+        border: none;
+        text-align: center;
+        width: 100%;
+    }
+  .drop-btn:hover{
+        background-color: lightgray;
+
+    }
+  .dtoggle{
+        background-color: white;
+        border: 0.2px solid black;
+    }
+    .drop-btn{
+        background-color: transparent;
+        border: none;
+        text-align: center;
+        width: 100%;
+    }
+    .drop-btn:hover{
+        background-color: lightgray;
+
+    }
+    .dtoggle{
+        background-color: white;
+        border: 0.2px solid black;
+    }
+    .toggle.btn-sm {
+    min-width: 50px !important;
+    min-height: 28px !important;
+    width: 50px !important;
+    height: 28px !important;
+    }   
+    .myanim{
+        overflow-x: auto;
+    }
+    .disableHover:hover{
+        cursor:not-allowed;
+    }
+    .noselect:focus {
+    outline: none;
+    border: 0;
+}
+  /*.btn:focus{
+  	background: blue; 
+  }*/
+  </style>
+</head>
+<body class="bodyClass" ng-app="Stocks" ng-controller="Main">
+<!-- #####FACEBOOK -->
+  <script>
+        $(document).ready(function()
+        {
+                    (function() {
+                var e = document.createElement('script'); 
+                e.async = true;
+                e.src = document.location.protocol +'//connect.facebook.net/en_US/all.js';
+                document.getElementById('fb-root').appendChild(e);}());
+                window.fbAsyncInit = function() {
+                FB.init({appId: 156686285075536, status: true, cookie: true, xfbml: true});};
+         });   
+         
+    </script>
+<!-- ################################ -->
+<!-- Search Stock container -->
+<!-- ################################ -->
+<div style="padding:15px;">
+<div ng-click="checkRed($event)"  class=" noselect container rounded col-sm-8 col-sm-offset-2" style=" background: white; border-radius: 10px;"  >
+	<div class="container" style="width:100%;padding: 20px;">
+		<form class="form-inline">
+        <div class="" align="center">
+            <div class="row  col-md-12">
+			<label class="col-md-4" style="font-size:small;margin-top: 10px;">Enter Stock Ticker Symbol : <span style="color:rgb(170, 66, 66)">*</span></label>
+
+                    <!-- MDAUTOCOMPLETE -->
+                    <div class="col-md-4">
+                    <md-autocomplete ng-class="{'submitted': submitted == true}" flex required
+                    md-input-name="autocompleteField"
+                    md-input-minlength="2"
+                    md-input-maxlength="5"
+                    md-no-cache="noCache"
+                    md-selected-item="selectItem"
+                    md-search-text="searchText"
+                    md-items="item in items"
+                    md-search-text-change = "querySearch(searchText)" 
+                    md-item-text="item.Symbol"
+                    placeholder="e.g. AAPL"
+                    >
+                    <md-item-template>
+                    <span md-highlight-text="searchText">{{item.Symbol}} - {{item.Name}} - {{item.Exchange}}</span>
+                    </md-item-template>
+                    </div>
+                    <!-- MDAUTOCOMPLETE -->
+                    <div class="col-md-4" style="margin-top:10px">
+                        <button ng-disabled="searchText.trim().length ==0" class="btn btn-primary" ng-click="searchStock()"><i class="glyphicon glyphicon-search"></i> Get Quote</button>
+                        <button class="btn btn-default" ng-click="clear()"><i class="glyphicon glyphicon-refresh"></i> Clear</button>
+                    </div>
+                    <p  class="help-block" style="color:red"><span ng-if="enterSym">Please enter a stock ticker symbol</span>&nbsp;</p>
+             </div> 
+        </div>
+		</form>
+  	
+      </div>
+</div>
+</div>
+
+<!-- ################################ -->
+<!-- line container -->
+<!-- ################################ -->
+<div class="container noselect" ng-click="checkRed($event)">
+    <hr class="col-sm-8 col-sm-offset-2">
+</div>
+
+<!-- ################################ -->
+<!-- Stock container -->
+<!-- ################################ -->
+<!-- <div ng-switch="toggleDiv"> -->
+<div class="container col-sm-8 col-sm-offset-2 myanim" ng-show="stockContainer">
+<div class="panel panel-default">	
+  		<!-- <div class="well well-sm">-->
+  		
+        <div class="panel-heading">
+        <div class="row">
+	  		<div class="col-sm-1"><button class="btn btn-default" ng-click="changetoFav()"><i class="glyphicon glyphicon-chevron-left"></i></button></div>
+	  		<div class="col-sm-10"><h4><b><center>Stock Details</center></b></h4></div>
+  		</div>
+  		</div>
+ 
+      <br>
+    <div class="panel-body">
+            <ul class="nav nav-pills">
+                <li class="active"><a data-toggle="pill" href="#menu1" ng-click="changeCurr()"><i class="glyphicon glyphicon-dashboard active"></i> Current Stock </a></li>
+                <li><a data-toggle="pill" href="#menu1" ng-click="historical()"><i class="glyphicon glyphicon-stats"></i> Historical Charts </a></li>
+                <li><a data-toggle="pill" href="#menu1" ng-click="newsFeed()"><i class="glyphicon glyphicon-link"></i> News Feed </a></li>
+            </ul>
+  	<hr>
+  	<div class="row" ng-if="tabNo == 0">
+        
+    	<div  class="col-sm-6">
+
+            <b>Stock Details</b>
+            <div style="float:right;width:100">
+                <div class="col-sm-1" float="left"  ><p align="right"><button class="btn btn-default" ng-click="favorite()" style="float:left;"><i class="glyphicon" ng-class="star"></i></button>
+                <button style="border: 0; background: transparent"  style="width:40px;height:32px;float:left;" onclick="facebook()" ng-disabled="pbar1 && pbar2"><img style="width:40px;height:32px;float:left;" src="http://cs-server.usc.edu:45678/hw/hw8/images/facebook.png"></button></p></div>
+                
+            </div><br><br>
+
+               <!-- progress bar -->
+                <div ng-if="pbar1 && !serverror" class="progress" class="col-sm-12" style="margin-top: 90px;">
+                    <div class="progress-bar progress-bar-primary progress-bar-striped active" style="width:50%"></div>      
+                </div>
+                <div ng-if="serverror" class="alert alert-danger" style="margin-top: 43px;"> Error! Failed to get current stock data </div>
+                <!-- stock details -->
+            <div ng-show="!pbar1">
+            
+    		<!--STOCKS TABLE-->
+  			<table class="table table-striped table-condense table-hover">
+		  	  <tr>
+                  <td>Stock Ticker Symbol</td>
+                  <td>{{stoc}}</td>
+			  </tr>
+			  <tr>
+                    <td>Last Price</td>
+                    <td>{{date['4. close'] | number:2}}</td>
+              </tr>
+              <tr>
+                  <td>Change(Change Percent)</td>
+                  <td ng-style="{color: textcolor}">{{change | number:2}}({{perChange | number:2}})<img src={{imgurl}} width="20px" height="20px" /></td>
+              </tr>
+              <tr>
+                  <td>Timestamp</td>
+                  <td>{{timezon}}</td>
+              </tr>
+              <tr>
+                  <td>Open</td>
+                  <td>{{date['1. open'] | number:2}}</td>
+              </tr>
+              <tr>
+                  <td>Close</td>
+                  <td>{{date['4. close'] | number:2}}</td>
+              </tr>
+              <tr>
+                  <td>Day's Range</td>
+                  <td>{{date['3. low']}}-{{date['2. high']}}</td>
+              </tr>
+              <tr>
+                  <td>Volume</td>
+                  <td>{{date['5. volume'] | number}}</td>
+              </tr>
+			  
+			</table>
+            </div>
+    	</div>
+    	<div class="col-sm-6">
+            <ul class="nav nav-tabs">
+    		<li class="active"><a data-toggle="tab" href="#price" ng-click="changeTab(1, Price)">Price</a></li>
+    		<li><a data-toggle="tab" href="#sma"  ng-click="changeTab(2, 'SMA')">SMA</a></li>
+    		<li><a data-toggle="tab" href="#ema" ng-click="changeTab(2, 'EMA')">EMA</a></li>
+    		<li><a data-toggle="tab" href="#stoch" ng-click="changeTab(2, 'STOCH')">STOCH</a></li>
+    		<li><a data-toggle="tab" href="#rsi" ng-click="changeTab(2, 'RSI')">RSI</a></li>
+    		<li><a data-toggle="tab" href="#adx" ng-click="changeTab(2, 'ADX')">ADX</a></li>
+    		<li><a data-toggle="tab" href="#cci" ng-click="changeTab(2, 'CCI')">CCI</a></li>
+    		<li><a data-toggle="tab" href="#bbands" ng-click="changeTab(2, 'BBANDS')">BBANDS</a></li>
+            <li><a data-toggle="tab" href="#macd" ng-click="changeTab(2, 'MACD')">MACD</a></li>
+            </ul>
+            <!--PROGRESS BAR-->
+           
+    		<div ng-if="pbar2 && !serverror" class="progress" style="margin-top: 46px;">
+                  <div class="progress-bar progress-bar-primary progress-bar-striped active" style="width:50%"></div>      
+            </div>
+
+              <highchart ng-show="!pbar2" id="chart1" ng-if="!serverror" config="chartConfig"></highchart>
+              <div ng-if="serverror" class="alert alert-danger"> Error! Failed to get {{currentIndicator}} data </div>
+  		</div>
+    </div>
+    <div ng-show="tabNo == 1">
+        <!-- <highchart id="chart1" config="chartConfigure"></highchart>  -->
+
+        <!--PROGRESS BAR-->
+        <div ng-if="hbar && !serverror" class="progress" style="margin-top: 46px;">
+                <div class="progress-bar progress-bar-primary progress-bar-striped active" style="width:50%"></div>      
+          </div>
+        <div ng-show="!hbar && !serverror" id="container"></div>
+       <!-- #######SERVER ERROR HANDLING -->
+        <div ng-if="serverror" class="alert alert-danger"> Error! Failed to get historical charts data </div>
+    </div>
+    </div>
+    
+    <div ng-if="tabNo == 2">
+        <!-- progress bar -->
+        <div ng-if="!newsDone && !serverror " class="progress" class="col-sm-12" style="margin-top: 40px;margin-left:20px;margin-right:20px;">
+            <div class="progress-bar progress-bar-primary progress-bar-striped active" style="width:50%"></div>      
+        </div>
+      <div ng-if="newsDone" style="margin-right: 5%; margin-left: 5%" class="well well-sm rounded" ng-repeat="news in rssNews | limitTo: quantity  track by $index">
+            <div>
+                <div><a href="{{news.link}}" target="_blank">{{news.title}}</a></div>
+                <div><p><b>Author: {{news.author}}</p></b></div>
+                <div><p><b>Date: {{news.date}}</p></b></div> 
+            </div>     
+      </div> 
+      <div ng-if="serverror" class="alert alert-danger"> Error! Failed to get News feed data </div>
+    </div>
+   
+
+</div>
+</div>
+<!-- ####FACEBOOK -->
+<div id="fb-root"></div>
+    <script>
+            function facebook()
+            {       
+
+                    var obj = {},chart;
+                    var act = $('.nav-tabs .active').text();
+                    chart = $('#chart1').highcharts();
+                    obj.svg = chart.getSVG();
+                    obj.type = 'image/png';
+                    obj.width = 450; 
+                    obj.async = true;      
+                    $.ajax({
+                            type: 'post',
+                            url: chart.options.exporting.url,        
+                            data: obj, 
+                            success: function (data) {            
+                            var exportUrl = this.url+data;
+                            FB.ui(
+                            {
+                                    method: 'share',
+                                    href: exportUrl,
+                            },
+                            );
+                            }        
+                    });
+            }
+    </script>
+<!-- ################################ -->
+<!-- Fav container -->
+<!-- ################################ -->
+<div class="container col-sm-8 col-sm-offset-2 favanim"  ng-show="favContainer">
+        <div class="panel panel-default" >	
+                  <!-- <div class="well well-sm">-->
+                  
+                <div class="panel-heading clearfix" style="padding-bottom:15px;">
+                    <b>Favorite List</b>
+                    <div style="float:right;">
+                        <span style="float:left;padding-top:5px;">Automatic Refresh: &nbsp;</span>
+                       
+                        <toggle ng-if="favContainer" ng-model="onoff" ng-change="autoToggle()" size="btn-sm" ></toggle>     
+                        <button class="btn btn-default btn-sm" style="margin-right:2px;margin-left:2px;" ng-click="refreshData()"><i class="glyphicon glyphicon-refresh"></i></button>
+                        <button ng-disabled="slideEnable" ng-click="changetoStock()" class="btn btn-default btn-sm" style="margin-right:2px;margin-left:2px;"><i class="glyphicon glyphicon-chevron-right"></i></button>
+                    </div>
+                </div>
+                
+                <div class="panel-body">
+                    <div class="row col-sm-12" style="margin-bottom:17px;">
+                        <div class="col-sm-2"><b>Sort by : </b></div>
+                        <div class="dropdown col-sm-4">
+                            <select id="sortBySelect" class="selectpicker show-tick" ng-options="option for option in listOfOptions" ng-model="selectedItem" ng-change="changeSort(option)">{{option}}</select>
+                        </div>
+                        <div class="col-sm-2"><b>Order:</b></div>
+                        
+                        <div class="dropdown col-sm-4">
+                            <select class="selectpicker show-tick" ng-options="option2 for option2 in listOfOrders" 
+                            ng-model="selectedOrder"
+                            ng-change="changeOrder(option)">{{option2}}
+                             </select>
+                            
+                        </div>
+                        </div>
+                    <div class="table-responsive col-sm-12">
+                    <table class="table table-striped table-condense table-hover">
+                        <tr>
+                           <th>Symbol</th>
+                           <th>Stock Price</th>
+                           <th>Change(Change Percentage)</th>
+                           <th>Volume</th>
+                           <th></th>
+                        </tr>
+                        <tr ng-repeat="favList in fav | orderBy:orderVariable:comparator track by $index">
+                            <td><button style="color: #337ab7;border: none;background-color:transparent" ng-click="searchStockFav(favList.symbol)">{{favList.symbol}}</button></td>
+                            <td>{{favList.price  | number:2}}</td>
+                            <td ng-style="{color: favList.color}">{{favList.change  | number:2}}({{favList.percentChange  | number:2}}) <img src={{favList.img}} width="20px" height="20px" /></td>
+                            <td>{{favList.volume  | number}}</td>
+                            <td><button class="btn btn-default" ng-click="delete($index)"><i class="glyphicon glyphicon-trash"></i></button></td>
+                        </tr>
+                    </table>
+
+                </div>
+                
+            </div>
+
+</div>
+<!-- </div> -->
+</body>
+
+</html>
